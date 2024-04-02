@@ -1,4 +1,4 @@
-import { LOGIN } from '../constant/authConstant';
+import { LOGIN, LOGOUT } from '../constant/authConstant';
 import { ActionLoginDataType } from '../types/authType';
 
 // export const registerUser = (data) => ({
@@ -6,11 +6,13 @@ import { ActionLoginDataType } from '../types/authType';
 //   payload: data,
 // });
 
-export const loginUser = (data: ActionLoginDataType) => ({
+export const loginUser = (data: ActionLoginDataType, user: string) => ({
   type: LOGIN,
   payload: data,
+  user: user,
 });
 
-// export const logout = () => ({
-//   type: LOGOUT,
-// });
+export const logoutUser = (token: string) => ({
+  type: LOGOUT,
+  token: token,
+});

@@ -1,4 +1,4 @@
-import { REGISTER, LOGOUT, LOGIN_SAGA } from '../constant/authConstant';
+import { REGISTER, LOGIN_SAGA, LOGOUT_SAGA } from '../constant/authConstant';
 import { UserType } from '../types/authType';
 
 const initialState = {
@@ -18,13 +18,13 @@ const authReducer = (state = initialState, action: UserType) => {
       return {
         ...state,
         token: action.token,
-        role: action.type,
+        role: action.role,
       };
-    case LOGOUT:
+    case LOGOUT_SAGA:
       return {
-        // ...state,
-        // isAuthenticated: false,
-        // isAdmin: false,
+        ...state,
+        token: action.token,
+        role: action.role,
       };
     default:
       return state;

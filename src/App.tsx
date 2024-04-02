@@ -1,11 +1,16 @@
-import AdminPage from './pages/admin/AdminPage';
-import './styles/index.css';
+import { BrowserRouter as Router } from 'react-router-dom';
+import AppRouter from './routers/AppRouter';
+import Navbar from './components/Navbar';
+import '../src/styles/index.css';
+import Footer from './components/Footer';
 
 function App() {
   return (
-    <>
-      <AdminPage />
-    </>
+    <Router>
+      <Navbar />
+      <AppRouter />
+      <Footer />
+    </Router>
   );
 }
 

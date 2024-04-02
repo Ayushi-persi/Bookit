@@ -8,7 +8,13 @@ export type ActionLoginDataType = {
 
 export type LoginActionType = {
   type: string;
+  user: string;
   payload: ActionLoginDataType;
+};
+
+export type LogoutActionType = {
+  type: string;
+  token: string;
 };
 
 export type UserType = {
