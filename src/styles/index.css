@@ -1,7 +1,11 @@
-* {
+/* * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+} */
+
+* {
+  text-transform: capitalize;
 }
 
 /* Navbar-Footer container  */
@@ -11,7 +15,7 @@
   justify-content: space-between;
   align-items: center;
   background-color: black;
-  padding: 5px;
+  padding: 4px;
 }
 
 .footer {
@@ -54,4 +58,85 @@
   flex-wrap: wrap;
   justify-content: center;
   height: calc(100vh - 90px);
+}
+
+/* Login Form */
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #efedee;
+  margin: 50px;
+}
+
+.left {
+  flex: 1.5;
+  margin: 30px 50px;
+}
+
+.right {
+  flex: 2;
+}
+
+.right img {
+  width: 100%;
+  height: 100%;
+}
+.inputfield {
+  display: flex;
+  flex-direction: column;
+  padding: 6px 10px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  margin-bottom: 10px;
+}
+
+.inputfield input,
+.inputfield select {
+  outline: 0;
+  border: 0;
+  margin: 6px 0;
+  padding: 4px;
+  font-size: 12px;
+}
+
+.inputfield:focus-within {
+  border-color: #8c7569;
+}
+
+.inputfield:focus-within label {
+  color: rgba(69, 52, 42, 0.8);
+}
+
+.inputfield input::placeholder {
+  color: #ccc;
+  opacity: 1;
+  font-size: 14px;
+}
+
+.form-btn {
+  padding: 1.2rem 3.2rem;
+  margin-top: 1.2rem;
+  outline: none;
+  text-transform: uppercase;
+  border: 0;
+  color: #fff;
+  border-radius: 4px;
+  background: #000000;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.form-btn :hover {
+  background: rgb(53, 49, 49);
+}
+
+@media (max-width: 750px) {
+  .container {
+    max-width: 90vw;
+  }
+
+  .right {
+    display: none;
+  }
 }

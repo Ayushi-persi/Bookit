@@ -6,10 +6,9 @@ import { ActionLoginDataType } from '../types/authType';
 //   payload: data,
 // });
 
-export const loginUser = (data: ActionLoginDataType, user: string) => ({
+export const loginUser = (data: ActionLoginDataType) => ({
   type: LOGIN,
   payload: data,
-  user: user,
 });
 
 export const logoutUser = (token: string) => ({

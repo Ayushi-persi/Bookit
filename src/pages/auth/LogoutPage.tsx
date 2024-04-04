@@ -15,7 +15,7 @@ const LogoutPage = () => {
   return (
     <div>
       <h1>You are successfully logged off</h1>
-      <Link to="/">Login Again!</Link>
+      <Link to="/login">Login Again!</Link>
     </div>
   );
 };
