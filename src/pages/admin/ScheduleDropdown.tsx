@@ -1,26 +1,26 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { URL } from '../../utils/constants';
-import { Doctor, DoctorApiResponse, PaginationData } from '../../utils/types';
+import {
+  Schedule,
+  initialPage,
+  ScheduleApiResponse,
+  PaginationData,
+} from '../../utils/types';
 import useAuthToken from '../../hooks/useAuthToken';
 import '../../styles/addDoctor.css';
 
-interface DoctorDropdownProps {
-  onSelectDoctor: (doctorId: string) => void;
+interface ScheduleDropdownProps {
+  onSelectSchedule: (scheduleId: string) => void;
+  doctorId: string;
 }
 
-const DoctorDropdown: React.FC<DoctorDropdownProps> = ({ onSelectDoctor }) => {
-  const [doctors, setDoctors] = useState<Doctor[]>([]);
-  const [pagination, setPagination] = useState<PaginationData>({
-    page: 1,
-    items: 0,
-    count: 0,
-    from: 0,
-    last: 0,
-    next: null,
-    pages: 0,
-    to: 0,
-  });
+const ScheduleDropdown: React.FC<ScheduleDropdownProps> = ({
+  onSelectSchedule,
+  doctorId,
+}) => {
+  const [schedules, setSchedules] = useState<Schedule[]>([]);
+  const [pagination, setPagination] = useState<PaginationData>(initialPage);
   const [loading, setLoading] = useState<boolean>(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -34,13 +34,16 @@ const DoctorDropdown: React.FC<DoctorDropdownProps> = ({ onSelectDoctor }) => {
   const fetchData = async (page: number) => {
     try {
       setLoading(true);
-      const response = await axios.get(`${URL}/doctors?page=${page}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
+      const response = await axios.get(
+        `${URL}/doctors/${doctorId}/schedules?page=${page}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         },
-      });
-      const data: DoctorApiResponse = response.data;
-      setDoctors((prevDoctors) => [...prevDoctors, ...data.doctors]);
+      );
+      const data: ScheduleApiResponse = response.data;
+      setSchedules((prevSchedules) => [...prevSchedules, ...data.schedules]);
       setPagination(data.pagination);
       setLoading(false);
     } catch (error) {
@@ -63,8 +66,8 @@ const DoctorDropdown: React.FC<DoctorDropdownProps> = ({ onSelectDoctor }) => {
     }
   };
 
-  const handleDoctorSelect = (id: string) => {
-    onSelectDoctor(id);
+  const handleScheduleSelect = (id: string) => {
+    onSelectSchedule(id);
   };
 
   return (
@@ -74,14 +77,13 @@ const DoctorDropdown: React.FC<DoctorDropdownProps> = ({ onSelectDoctor }) => {
       onScroll={handleScroll}
       ref={scrollContainerRef}
     >
-      {doctors.map((doctor) => (
+      {schedules.map((schedule) => (
         <div
-          key={doctor.id}
-          className="doctor-item"
-          onClick={() => handleDoctorSelect(doctor.id)}
+          key={schedule.id}
+          onClick={() => handleScheduleSelect(schedule.id)}
         >
-          <span>
-            {doctor.first_name} {doctor.last_name}
+          <span className="dropdown-span">
+            {schedule.date} : {schedule.id}
           </span>
         </div>
       ))}
@@ -93,4 +95,4 @@ const DoctorDropdown: React.FC<DoctorDropdownProps> = ({ onSelectDoctor }) => {
   );
 };
 
-export default DoctorDropdown;
+export default ScheduleDropdown;

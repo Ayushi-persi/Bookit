@@ -1,21 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { URL } from '../../utils/constants';
-import { ApiResponse, Qualification, PaginationData } from '../../utils/types';
+import {
+  ApiResponse,
+  Qualification,
+  PaginationData,
+  initialPage,
+} from '../../utils/types';
 import Pagination from '../../components/Pagination';
 import axios from 'axios';
 
-const App: React.FC = () => {
+const ViewQualification: React.FC = () => {
   const [qualifications, setQualifications] = useState<Qualification[]>([]);
-  const [pagination, setPagination] = useState<PaginationData>({
-    page: 1,
-    items: 0,
-    count: 0,
-    from: 0,
-    last: 0,
-    next: null,
-    pages: 0,
-    to: 0,
-  });
+  const [pagination, setPagination] = useState<PaginationData>(initialPage);
 
   useEffect(() => {
     fetchData(1);
@@ -38,7 +34,7 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
-      <h1>Qualifications</h1>
+      <h1 className="header">Qualifications</h1>
       <table>
         <thead>
           <tr>
@@ -62,4 +58,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default ViewQualification;

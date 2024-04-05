@@ -14,7 +14,6 @@ const authReducer = (state = initialState, action: UserType) => {
         // userData: [...state.userData, action.payload],
       };
     case LOGIN_SAGA:
-      console.log('reducer', action);
       return {
         ...state,
         token: action.token,

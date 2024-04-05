@@ -10,21 +10,3 @@ const AdminRoute = ({ children }: RouteProps) => {
 };
 
 export default AdminRoute;
-
-// import { Navigate } from 'react-router-dom';
-// import { connect } from 'react-redux';
-// import { RouteProps, StateType } from '../utils/types';
-// import { ReactNode } from 'react';
-
-// const AdminRoute = ({ children, isAuth }: RouteProps): ReactNode => {
-//   console.log(isAuth);
-//   return isAuth ? children : <Navigate to="/login" />;
-// };
-
-// const mapStateToProps = (state: StateType) => ({
-//   isAuth: Boolean(state.authData.token && state.authData.role === 'admin'),
-// });
-
-// const AdminRouteConnect = connect(mapStateToProps)(AdminRoute);
-
-// export default AdminRouteConnect;

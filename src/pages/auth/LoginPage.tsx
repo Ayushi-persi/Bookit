@@ -24,7 +24,7 @@ const LoginPage = () => {
   const handleSubmit = (values: any, { resetForm }: any) => {
     const loginData = { user: values };
     dispatch(loginUser(loginData));
-    navigate(`/patient`);
+    navigate(`/landing`);
     resetForm();
   };
 

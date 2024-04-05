@@ -2,7 +2,6 @@ import { ChangeEvent, FocusEvent, ReactNode } from 'react';
 import { UserType } from '../redux/types/authType';
 
 export type RouteProps = { children: ReactNode };
-// export type RouteProps = { children: ReactNode; isAuth: boolean };
 
 export type StateType = {
   authData: UserType;
@@ -75,6 +74,16 @@ export type Doctor = {
   qualifications: Qualification[];
 };
 
+export type DoctorFormData = {
+  first_name: string;
+  password: string;
+  password_confirmation: string;
+  last_name: string;
+  email: string;
+  contact_number: string;
+  qualifications: string[];
+};
+
 export type DoctorApiResponse = {
   status: boolean;
   doctors: Doctor[];
@@ -93,4 +102,16 @@ export type ScheduleApiResponse = {
   status: boolean;
   schedules: Schedule[];
   pagination: PaginationData;
+};
+
+// common
+export const initialPage = {
+  page: 1,
+  items: 0,
+  count: 0,
+  from: 0,
+  last: 0,
+  next: null,
+  pages: 0,
+  to: 0,
 };

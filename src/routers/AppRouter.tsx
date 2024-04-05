@@ -7,17 +7,20 @@ import LoginPage from '../pages/auth/LoginPage';
 import AdminRoute from './AdminRoute';
 import DoctorRoute from './DoctorRoute';
 import LogoutPage from '../pages/auth/LogoutPage';
-import AddQualification from '../pages/doctor/AddQualification';
-import ViewQualification from '../pages/doctor/ViewQualification';
-import AddDoctor from '../pages/doctor/AddDoctor';
-import ViewDoctors from '../pages/doctor/ViewDoctors';
-import GetAvailability from '../pages/doctor/GetAvailability';
-import GetSchedule from '../pages/doctor/GetSchedule';
+import AddQualification from '../pages/admin/CreateQualification';
+import ViewQualification from '../pages/admin/ViewQualification';
+import CreateDoctor from '../pages/admin/CreateDoctor';
+import ViewDoctors from '../pages/admin/ViewDoctors';
+import GetAvailability from '../pages/admin/ViewAvailability';
+import GetSchedule from '../pages/doctor/ViewSchedule';
+import HomePage from '../pages/HomePage';
+import CreateSchedule from '../pages/admin/CreateSchedule';
 
 const AppRouter = () => {
   return (
     <Routes>
-      <Route path="/" element={<LandingPage />} />
+      <Route path="/" element={<HomePage />} />
+      <Route path="/landing" element={<LandingPage />} />
       <Route
         path="/admin"
         element={
@@ -55,7 +58,7 @@ const AppRouter = () => {
         path="/addDoctor"
         element={
           <AdminRoute>
-            <AddDoctor />
+            <CreateDoctor />
           </AdminRoute>
         }
       />
@@ -76,11 +79,19 @@ const AppRouter = () => {
         }
       />
       <Route
+        path="/createSchedule"
+        element={
+          <AdminRoute>
+            <CreateSchedule />
+          </AdminRoute>
+        }
+      />
+      <Route
         path="/getAvailability"
         element={
-          <DoctorRoute>
+          <AdminRoute>
             <GetAvailability />
-          </DoctorRoute>
+          </AdminRoute>
         }
       />
       <Route path="/login" element={<LoginPage />} />

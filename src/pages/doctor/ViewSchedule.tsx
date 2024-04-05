@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import DoctorDropdown from './DoctorDropdown';
+import DoctorDropdown from '../admin/DoctorDropdown';
 import useAuthToken from '../../hooks/useAuthToken';
 import { URL } from '../../utils/constants';
 
@@ -10,7 +10,7 @@ interface Schedule {
   is_holiday: boolean;
 }
 
-const GetSchedule: React.FC = () => {
+const ViewSchedule: React.FC = () => {
   const [selectedDoctorId, setSelectedDoctorId] = useState<string>('');
   const [schedules, setSchedules] = useState<Schedule[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -42,7 +42,6 @@ const GetSchedule: React.FC = () => {
           },
         },
       );
-      // response.data.status && alert('Success: Schedule created successfully');
     } catch (error) {
       console.log(error);
     }
@@ -51,7 +50,6 @@ const GetSchedule: React.FC = () => {
   useEffect(() => {
     createSchedule();
     if (selectedDoctorId) {
-      console.log(selectedDoctorId);
       fetchSchedules(selectedDoctorId);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -60,11 +58,14 @@ const GetSchedule: React.FC = () => {
   const fetchSchedules = async (doctorId: string) => {
     try {
       setLoading(true);
-      const response = await axios.get(`${URL}/doctors/${doctorId}/schedules`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
+      const response = await axios.get(
+        `${URL}/doctors/${doctorId}/schedules/`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         },
-      });
+      );
       const data = response.data;
       setSchedules(data.schedules);
       setLoading(false);
@@ -91,41 +92,17 @@ const GetSchedule: React.FC = () => {
 
   return (
     <div>
-      <h1>Get Schedule</h1>
+      <h1 className="header">Get Schedule</h1>
       <div>
         <label>Select Doctor</label>
         <DoctorDropdown onSelectDoctor={setSelectedDoctorId} />
       </div>
-      {/* {selectedDoctorId && <p>Selected Doctor ID: {selectedDoctorId}</p>} */}
       <div className="schedules-container">
         {loading ? <p>Loading...</p> : renderSchedules()}
       </div>
+      <br />
     </div>
   );
 };
 
-export default GetSchedule;
-
-// import { useState } from 'react';
-// import DoctorDropdown from './DoctorDropdown';
-
-// const GetSchedule: React.FC = () => {
-//   const [selectedDoctorId, setSelectedDoctorId] = useState<string>('');
-
-//   const handleDoctorSelect = (id: string) => {
-//     setSelectedDoctorId(id);
-//   };
-
-//   return (
-//     <div>
-//       <h1>Get Schedule</h1>
-//       <div>
-//         <label>Select Doctor</label>
-//         <DoctorDropdown onSelectDoctor={handleDoctorSelect} />
-//       </div>
-//       {selectedDoctorId && <p>Selected Doctor ID: {selectedDoctorId}</p>}
-//     </div>
-//   );
-// };
-
-// export default GetSchedule;
+export default ViewSchedule;

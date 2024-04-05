@@ -7,7 +7,7 @@ interface Qualification {
   description: string;
 }
 
-const AddQualification: React.FC = () => {
+const CreateQualification: React.FC = () => {
   const token = useAuthToken();
   const [degree, setDegree] = useState<string>('');
   const [description, setDescription] = useState<string>('');
@@ -40,8 +40,8 @@ const AddQualification: React.FC = () => {
   };
 
   return (
-    <div>
-      <h1>Add Qualification Details</h1>
+    <div className="dr-form-container">
+      <h1 className="header">Add Qualification Details</h1>
       <label>Degree</label>
       <input
         type="text"
@@ -61,4 +61,4 @@ const AddQualification: React.FC = () => {
   );
 };
 
-export default AddQualification;
+export default CreateQualification;

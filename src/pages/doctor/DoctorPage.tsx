@@ -1,30 +1,35 @@
-import { useNavigate } from 'react-router-dom';
+import { useState, ReactElement } from 'react';
+import ViewSchedule from './ViewSchedule';
 
-const DoctorPage = () => {
-  const navigate = useNavigate();
+const DoctorPage: React.FC = () => {
+  const [selectedComponent, setSelectedComponent] =
+    useState<ReactElement | null>(null);
+
+  const links: { label: string; component: ReactElement }[] = [
+    { label: 'List Schedules', component: <ViewSchedule /> },
+  ];
   return (
-    <div className="">
-      <h1>DoctorPage</h1>
-      <br />
-      <button onClick={() => navigate('/addQualification')}>
-        Create Qualification
-      </button>
-      <button onClick={() => navigate('/viewQualification')}>
-        View Qualifications
-      </button>
-      <br />
-      <br />
-      <button onClick={() => navigate('/addDoctor')}>Create Doctor</button>
-      <button onClick={() => navigate('/viewDoctors')}>View Doctor</button>
-      <br />
-      <br />
-      {/* <button onClick={() => navigate('/createSchedule')}>
-        Create Schedule
-      </button> */}
-      <button onClick={() => navigate('/getSchedule')}>Get Schedule</button>
-      <button onClick={() => navigate('/getAvailability')}>
-        Get Availability
-      </button>
+    <div className="wrapper">
+      <aside>
+        <ul>
+          {links.map((link, index) => (
+            <button
+              className="link-btn"
+              key={index}
+              onClick={() => setSelectedComponent(link.component)}
+            >
+              {link.label}
+            </button>
+          ))}
+        </ul>
+      </aside>
+      <main>
+        {selectedComponent ? (
+          <div className="wrapper_inner">{selectedComponent}</div>
+        ) : (
+          <div className="container">Explore Functionalities...</div>
+        )}
+      </main>
     </div>
   );
 };

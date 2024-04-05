@@ -10,15 +10,6 @@ const Navbar = () => {
         <img src={logo} alt="logo" className="title-logo" />
         <h1>Bookit</h1>
       </Link>
-      <Link to="/admin" className="nav-link">
-        Admin
-      </Link>
-      <Link to="/doctor" className="nav-link">
-        Doctor
-      </Link>
-      <Link to="/patient" className="nav-link">
-        Patient
-      </Link>
       {!token && (
         <Link to="/login" className="nav-link">
           Login

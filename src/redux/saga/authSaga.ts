@@ -16,7 +16,6 @@ function* loginSaga(action: LoginActionType): SagaIterator {
       'https://psl-test2-b8593d29856b.herokuapp.com/api/v1/session',
       action.payload,
     );
-    console.log('response', response.data);
     yield put({
       type: LOGIN_SAGA,
       token: response?.data?.user?.authentication?.token,

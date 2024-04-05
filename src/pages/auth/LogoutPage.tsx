@@ -13,9 +13,11 @@ const LogoutPage = () => {
   }, []);
 
   return (
-    <div>
+    <div className="header">
       <h1>You are successfully logged off</h1>
-      <Link to="/login">Login Again!</Link>
+      <Link to="/login" className="link">
+        Login Again!
+      </Link>
     </div>
   );
 };

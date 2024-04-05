@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { URL } from '../../utils/constants';
-import { DoctorApiResponse, Doctor, PaginationData } from '../../utils/types';
+import {
+  DoctorApiResponse,
+  Doctor,
+  PaginationData,
+  initialPage,
+} from '../../utils/types';
 import Pagination from '../../components/Pagination';
 import axios from 'axios';
 import useAuthToken from '../../hooks/useAuthToken';
@@ -8,16 +13,7 @@ import useAuthToken from '../../hooks/useAuthToken';
 const ViewDoctors: React.FC = () => {
   const token = useAuthToken();
   const [doctors, setDoctors] = useState<Doctor[]>([]);
-  const [pagination, setPagination] = useState<PaginationData>({
-    page: 1,
-    items: 0,
-    count: 0,
-    from: 0,
-    last: 0,
-    next: null,
-    pages: 0,
-    to: 0,
-  });
+  const [pagination, setPagination] = useState<PaginationData>(initialPage);
 
   useEffect(() => {
     fetchData(1);
@@ -31,7 +27,6 @@ const ViewDoctors: React.FC = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(response.data);
       const data: DoctorApiResponse = response.data;
       setDoctors(data.doctors);
       setPagination(data.pagination);
@@ -45,7 +40,7 @@ const ViewDoctors: React.FC = () => {
 
   return (
     <div className="App">
-      <h1>Top Doctors</h1>
+      <h1 className="header">Top Doctors</h1>
       <table>
         <thead>
           <tr>
@@ -79,6 +74,7 @@ const ViewDoctors: React.FC = () => {
         currentPage={pagination.page}
         totalPages={pagination.pages}
       />
+      <br />
     </div>
   );
 };

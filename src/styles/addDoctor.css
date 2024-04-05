@@ -40,6 +40,12 @@
   cursor: pointer;
 }
 
+.dr-form-container button:hover {
+  background-color: white;
+  color: black;
+  box-shadow: 2px 4px 8px rgba(82, 82, 82, 0.705);
+}
+
 .pagination-container {
   margin-top: 20px;
   display: flex;
@@ -66,16 +72,17 @@ th {
   border: 1px solid;
   text-align: center;
   text-transform: capitalize;
+  padding: 4px 8px;
 }
 
 th {
-  background-color: rgb(0, 162, 255);
+  background-color: rgb(0, 23, 62);
   border: 1px black solid;
   color: white;
   padding: 8px;
 }
 table {
-  width: 90%;
+  width: 100%;
   margin: 10px auto;
   border-collapse: collapse;
 }

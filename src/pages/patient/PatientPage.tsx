@@ -1,5 +1,5 @@
 const PatientPage = () => {
-  return <div>PatientPage</div>;
+  return <div className="header">PatientPage</div>;
 };
 
 export default PatientPage;

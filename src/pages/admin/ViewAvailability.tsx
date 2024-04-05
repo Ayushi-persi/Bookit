@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ScheduleDropdown from './ScheduleDropdown';
 import useAuthToken from '../../hooks/useAuthToken';
 import { URL } from '../../utils/constants';
+import DoctorDropdown from './DoctorDropdown';
 
 interface Availability {
   id: string;
@@ -10,7 +12,8 @@ interface Availability {
   is_available: boolean;
 }
 
-const GetAvailability: React.FC = () => {
+const ViewAvailability: React.FC = () => {
+  const [selectedDoctorId, setSelectedDoctorId] = useState<string>('');
   const [selectedScheduleId, setSelectedScheduleId] = useState<string>('');
   const [availabilites, setAvailabilities] = useState<Availability[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -33,26 +36,21 @@ const GetAvailability: React.FC = () => {
           },
         },
       );
-      // response.data.status && alert('Success: Schedule created successfully');
     } catch (error) {
       console.log(error);
     }
   };
   useEffect(() => {
     createAvailability();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
     if (selectedScheduleId) {
-      console.log(selectedScheduleId);
       fetchAvailabilities(selectedScheduleId);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedScheduleId]);
 
   const fetchAvailabilities = async (scheduleId: string) => {
     try {
-      console.log(scheduleId);
       setLoading(true);
       const response = await axios.get(
         `${URL}/schedules/${scheduleId}/availabilities`,
@@ -63,7 +61,6 @@ const GetAvailability: React.FC = () => {
         },
       );
       const data = response.data;
-      console.log(data.schedule);
       setAvailabilities(data.schedule.availabilities);
       setLoading(false);
     } catch (error) {
@@ -73,30 +70,42 @@ const GetAvailability: React.FC = () => {
   };
 
   const renderSchedules = () => {
-    console.log(availabilites);
-    return availabilites.map((availability) => (
-      <li
-        key={availability.id}
-        style={{ color: availability.is_available ? 'green' : 'red' }}
-      >
-        {availability.time} - {availability.id}
-      </li>
-    ));
+    return availabilites.length ? (
+      availabilites.map((availability) => (
+        <li
+          key={availability.id}
+          style={{ color: availability.is_available ? 'green' : 'red' }}
+        >
+          {availability.time} - {availability.id}
+        </li>
+      ))
+    ) : (
+      <p>No Availability yet</p>
+    );
   };
 
   return (
     <div>
-      <h1>Get Availability</h1>
+      <h1 className="header">Get Availability</h1>
       <div>
-        <label>Select Schedule</label>
-        <ScheduleDropdown onSelectSchedule={setSelectedScheduleId} />
+        <label>Select Doctor</label>
+        <DoctorDropdown onSelectDoctor={setSelectedDoctorId} />
       </div>
-      {/* {selectedDoctorId && <p>Selected Doctor ID: {selectedDoctorId}</p>} */}
+      {selectedDoctorId && (
+        <div>
+          <label>Select Schedule</label>
+          <ScheduleDropdown
+            onSelectSchedule={setSelectedScheduleId}
+            doctorId={selectedDoctorId}
+          />
+        </div>
+      )}
       <div className="schedules-container">
         {loading ? <p>Loading...</p> : renderSchedules()}
       </div>
+      <br />
     </div>
   );
 };
 
-export default GetAvailability;
+export default ViewAvailability;
